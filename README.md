@@ -1,6 +1,3 @@
-##LUCAS REIS DAS CHAGAS
-##202104991
-
 #include <stdio.h>
 #include <string.h>
 	
@@ -333,6 +330,440 @@
 		
 	}
 	
+	atualizapCodigo(){
+		system("cls");
+		FILE *leitura;
+		FILE *arquivo2;
+		char texto[1000], texto2[1000], codigo[80];
+		char nome[80], codigo2[80], cpf[80], telefone[80], endereco[80];
+		int cont = 0, k = 0, verdadeiro = 0;
+		
+		printf("Informe seu CODIGO:\n");
+		scanf("%s", &codigo);
+		
+		leitura = fopen("Clientes.txt", "r");
+		arquivo2 = fopen("Clientes2.txt", "w");
+		
+		while(fgets(texto, 1000, leitura) != NULL){
+			fprintf(arquivo2, "%s", texto);
+		}
+		fclose(leitura);
+		leitura = fopen("Clientes.txt", "r");
+		
+		fscanf(leitura, "%[^'\n']", texto2);
+		while(fgets(texto, 1000, leitura) != NULL){
+			if(strcmp(codigo, texto2) == 0){
+				verdadeiro = 1;
+				break;
+			}else{
+				cont++;
+			}
+			
+			fscanf(leitura, "%[^'\n']", texto2);
+		}
+		
+		if(verdadeiro == 0){
+			printf("Cliente nao encontrado!\n");
+		}
+		
+		fclose(leitura);
+		fclose(arquivo2);
+		
+		leitura = fopen("Clientes2.txt", "r");
+		arquivo2 = fopen("Clientes.txt", "w");
+		
+
+		
+		if(verdadeiro == 1){
+			fscanf(leitura, "%[^'\n']", texto2);
+			while(fgets(texto, 1000, leitura) != NULL){
+				system("cls");
+				k++;
+				if(k == cont){
+					printf("Digite o NOME do cliente a ser atualizado:\n");
+					fflush(stdin);
+					scanf("%[^'\n']s", &nome);
+					fprintf(arquivo2, "%s\n", nome);
+				}else if(k == (cont + 1)){
+					printf("Digite o CODIGO do cliente a ser atualizado:\n");
+					fflush(stdin);
+					scanf("%[^'\n']s", &codigo2);
+					fprintf(arquivo2, "%s\n", codigo2);
+				}else if(k == (cont + 2)){
+					printf("Digite o CPF/CNPJ do cliente a ser atualizado:\n");
+					fflush(stdin);
+					scanf("%[^'\n']s", &cpf);
+					fprintf(arquivo2, "%s\n", cpf);
+				}else if(k == (cont + 3)){
+					printf("Digite o TELEFONE do cliente a ser atualizado:\n");
+					fflush(stdin);
+					scanf("%[^'\n']s", &telefone);
+					fprintf(arquivo2, "%s\n", telefone);
+				}else if(k == (cont + 4)){
+					printf("Digite o ENDERECO do cliente a ser atualizado:\n");
+					fflush(stdin);
+					scanf("%[^'\n']s", &endereco);
+					fprintf(arquivo2, "%s\n", endereco);
+				}else{
+					fprintf(arquivo2, "%s\n", texto2);
+				}
+			
+				fscanf(leitura, "%[^'\n']", texto2);	
+			}
+		}else{
+			fscanf(leitura, "%[^'\n']", texto2);
+			while(fgets(texto, 1000, leitura) != NULL){
+				fprintf(arquivo2, "%s\n", texto2);
+				fscanf(leitura, "%[^'\n']", texto2);
+			}
+		}	
+		
+		
+		fclose(arquivo2);
+		fclose(leitura);
+		
+		
+		system("pause");
+		system("cls");	
+	}
+	
+	atualizapCpf(){
+		system("cls");
+		FILE *leitura;
+		FILE *arquivo2;
+		char texto[1000], texto2[1000], cpf[80];
+		char nome[80], codigo[80], cpf2[80], telefone[80], endereco[80];
+		int cont = 0, k = 0, verdadeiro = 0;
+		
+		printf("Informe seu CPF/CNPJ:\n");
+		scanf("%s", &cpf);
+			
+		leitura = fopen("Clientes.txt", "r");
+		arquivo2 = fopen("Clientes2.txt", "w");
+		
+		while(fgets(texto, 1000, leitura) != NULL){
+			fprintf(arquivo2, "%s", texto);
+		}
+		fclose(leitura);
+		leitura = fopen("Clientes.txt", "r");
+		
+		fscanf(leitura, "%[^'\n']", texto2);
+		while(fgets(texto, 1000, leitura) != NULL){
+			if(strcmp(cpf, texto2) == 0){
+				verdadeiro = 1;
+				break;
+			}else{
+				cont++;
+			}
+			
+			fscanf(leitura, "%[^'\n']", texto2);
+		}
+		cont--;
+		if(verdadeiro == 0){
+			printf("Cliente nao encontrado!\n");
+		}
+		
+		fclose(leitura);
+		fclose(arquivo2);
+		
+		leitura = fopen("Clientes2.txt", "r");
+		arquivo2 = fopen("Clientes.txt", "w");
+		
+				
+		if(verdadeiro == 1){
+			fscanf(leitura, "%[^'\n']", texto2);
+			while(fgets(texto, 1000, leitura) != NULL){
+				system("cls");
+				k++;
+				if(k == cont){
+					printf("Digite o NOME do cliente a ser atualizado:\n");
+					fflush(stdin);
+					scanf("%[^'\n']s", &nome);
+					fprintf(arquivo2, "%s\n", nome);
+				}else if(k == (cont + 1)){
+					printf("Digite o CODIGO do cliente a ser atualizado:\n");
+					fflush(stdin);
+					scanf("%[^'\n']s", &codigo);
+					fprintf(arquivo2, "%s\n", codigo);
+				}else if(k == (cont + 2)){
+					printf("Digite o CPF/CNPJ do cliente a ser atualizado:\n");
+					fflush(stdin);
+					scanf("%[^'\n']s", &cpf2);
+					fprintf(arquivo2, "%s\n", cpf2);
+				}else if(k == (cont + 3)){
+					printf("Digite o TELEFONE do cliente a ser atualizado:\n");
+					fflush(stdin);
+					scanf("%[^'\n']s", &telefone);
+					fprintf(arquivo2, "%s\n", telefone);
+				}else if(k == (cont + 4)){
+					printf("Digite o ENDERECO do cliente a ser atualizado:\n");
+					fflush(stdin);
+					scanf("%[^'\n']s", &endereco);
+					fprintf(arquivo2, "%s\n", endereco);
+				}else{
+					fprintf(arquivo2, "%s\n", texto2);
+				}
+			
+				fscanf(leitura, "%[^'\n']", texto2);	
+			}
+		}else{
+			fscanf(leitura, "%[^'\n']", texto2);
+			while(fgets(texto, 1000, leitura) != NULL){
+				fprintf(arquivo2, "%s\n", texto2);
+				fscanf(leitura, "%[^'\n']", texto2);
+			}
+		}	
+		
+		
+		fclose(arquivo2);
+		fclose(leitura);
+		
+		system("pause");
+		system("cls");
+	}
+	
+	void atualizaCliente(){
+		int i = 0;
+		
+		printf("Deseja ATUALIZAR o cliente atraves de:\n");
+		printf("1 - CODIGO\n");
+		printf("2 - CPF/CNPJ\n");
+		scanf("%d", &i);
+		
+		if(i == 1){
+			atualizapCodigo();
+		}else if(i == 2){
+			atualizapCpf();
+		}else{
+			system("cls");
+			printf("Valor indicado errado!\n");
+			atualizaCliente();
+		}
+	}
+	
+	int excluiCodigo(){
+		system("cls");
+		FILE *leitura;
+		FILE *arquivo2;
+		char texto[1000], texto2[1000], codigo[80];
+		int cont = 0, k = 0, verdadeiro = 0, confirmacao, exclui = 0;
+		
+		printf("Informe o CODIGO:\n");
+		scanf("%s", &codigo);
+		
+		leitura = fopen("Clientes.txt", "r");
+		arquivo2 = fopen("Clientes2.txt", "w");
+		
+		while(fgets(texto, 1000, leitura) != NULL){
+			fprintf(arquivo2, "%s", texto);
+		}
+		fclose(leitura);
+		leitura = fopen("Clientes.txt", "r");
+		
+		fscanf(leitura, "%[^'\n']", texto2);
+		while(fgets(texto, 1000, leitura) != NULL){
+			if(strcmp(codigo, texto2) == 0){
+				verdadeiro = 1;
+				break;
+			}else{
+				cont++;
+			}
+			
+			fscanf(leitura, "%[^'\n']", texto2);
+		}
+		
+		if(verdadeiro == 0){
+			printf("Cliente nao encontrado!\n");
+		}
+		
+		fclose(leitura);
+		fclose(arquivo2);
+		
+		leitura = fopen("Clientes2.txt", "r");
+		
+		
+		if(verdadeiro == 1){
+			system("cls");
+			fscanf(leitura, "%[^'\n']", texto2);
+			while(fgets(texto, 1000, leitura) != NULL){
+				k++;
+				if(k == cont){
+					printf("NOME: %s\n", texto2);
+				}else if(k == (cont + 1)){
+					printf("CODIGO: %s\n", texto2);
+				}else if(k == (cont + 2)){
+					printf("CPF/CNPJ: %s\n", texto2);
+				}else if(k == (cont + 3)){
+					printf("TELEFONE: %s\n", texto2);
+				}else if(k == (cont + 4)){
+					printf("ENDERECO: %s\n", texto2);
+				}
+			
+				fscanf(leitura, "%[^'\n']", texto2);	
+			}
+			printf("Tem certeza que deseja excluir esse cliente?\n");
+			printf("1 - Sim\n");
+			printf("2 - Nao\n");
+			fflush(stdin);
+			scanf("%d", &confirmacao);
+			if(confirmacao == 1){
+				exclui = 1;
+				system("cls");
+				k = 0;
+				fclose(leitura);
+				leitura = fopen("Clientes2.txt", "r");
+				arquivo2 = fopen("Clientes.txt", "w");
+				fscanf(leitura, "%[^'\n']", texto2);
+				while(fgets(texto, 1000, leitura) != NULL){
+					k++;
+					if(k == cont){
+					}else if(k == (cont + 1)){
+					}else if(k == (cont + 2)){
+					}else if(k == (cont + 3)){
+					}else if(k == (cont + 4)){
+					}else{
+						fprintf(arquivo2, "%s\n", texto2);
+					}
+				
+					fscanf(leitura, "%[^'\n']", texto2);	
+				}
+				fclose(arquivo2);
+			}
+		}
+				
+		
+		
+		fclose(leitura);
+		
+		
+		system("pause");
+		system("cls");	
+		return exclui;
+	}
+	
+	
+	int excluiCpf(){
+		system("cls");
+		FILE *leitura;
+		FILE *arquivo2;
+		char texto[1000], texto2[1000], cpf[80];
+		int cont = 0, k = 0, verdadeiro = 0, confirmacao, exclui = 0;
+		
+		printf("Informe o CPF/CNPJ:\n");
+		scanf("%s", &cpf);
+		
+		leitura = fopen("Clientes.txt", "r");
+		arquivo2 = fopen("Clientes2.txt", "w");
+		
+		while(fgets(texto, 1000, leitura) != NULL){
+			fprintf(arquivo2, "%s", texto);
+		}
+		fclose(leitura);
+		leitura = fopen("Clientes.txt", "r");
+		
+		fscanf(leitura, "%[^'\n']", texto2);
+		while(fgets(texto, 1000, leitura) != NULL){
+			if(strcmp(cpf, texto2) == 0){
+				verdadeiro = 1;
+				break;
+			}else{
+				cont++;
+			}
+			
+			fscanf(leitura, "%[^'\n']", texto2);
+		}
+		cont--;
+		
+		if(verdadeiro == 0){
+			printf("Cliente nao encontrado!\n");
+		}
+		
+		fclose(leitura);
+		fclose(arquivo2);
+		
+		leitura = fopen("Clientes2.txt", "r");
+		
+		
+		if(verdadeiro == 1){
+			system("cls");
+			fscanf(leitura, "%[^'\n']", texto2);
+			while(fgets(texto, 1000, leitura) != NULL){
+				k++;
+				if(k == cont){
+					printf("NOME: %s\n", texto2);
+				}else if(k == (cont + 1)){
+					printf("CODIGO: %s\n", texto2);
+				}else if(k == (cont + 2)){
+					printf("CPF/CNPJ: %s\n", texto2);
+				}else if(k == (cont + 3)){
+					printf("TELEFONE: %s\n", texto2);
+				}else if(k == (cont + 4)){
+					printf("ENDERECO: %s\n", texto2);
+				}
+			
+				fscanf(leitura, "%[^'\n']", texto2);	
+			}
+			printf("Tem certeza que deseja excluir esse cliente?\n");
+			printf("1 - Sim\n");
+			printf("2 - Nao\n");
+			fflush(stdin);
+			scanf("%d", &confirmacao);
+			if(confirmacao == 1){
+				exclui = 1;
+				system("cls");
+				k = 0;
+				fclose(leitura);
+				leitura = fopen("Clientes2.txt", "r");
+				arquivo2 = fopen("Clientes.txt", "w");
+				fscanf(leitura, "%[^'\n']", texto2);
+				while(fgets(texto, 1000, leitura) != NULL){
+					k++;
+					if(k == cont){
+					}else if(k == (cont + 1)){
+					}else if(k == (cont + 2)){
+					}else if(k == (cont + 3)){
+					}else if(k == (cont + 4)){
+					}else{
+						fprintf(arquivo2, "%s\n", texto2);
+					}
+				
+					fscanf(leitura, "%[^'\n']", texto2);	
+				}
+				fclose(arquivo2);
+			}
+		}
+				
+		
+		
+		fclose(leitura);
+		
+		
+		system("pause");
+		system("cls");
+		return exclui;
+	}
+	
+	
+	int excluiCliente(){
+		int i = 0, exclui = 0;
+		
+		printf("Deseja EXCLUIR o cliente atraves de:\n");
+		printf("1 - CODIGO\n");
+		printf("2 - CPF/CNPJ\n");
+		scanf("%d", &i);
+		
+		if(i == 1){
+			exclui = excluiCodigo();
+		}else if(i == 2){
+			exclui = excluiCpf();
+		}else{
+			system("cls");
+			printf("Valor indicado errado!\n");
+			excluiCliente();
+		}
+		return exclui;
+	}
+	
 
 //-------------------------------------------------------------------------------------------------------------------------------------
 int main(){
@@ -370,6 +801,10 @@ int main(){
 				todosClientes();              //Chama a função
 			}else if(leitor == 'B'){
 				buscaCliente();               //Chama a função
+			}else if(leitor == 'A'){
+				atualizaCliente();
+			}else if(leitor == 'E'){
+				excluiCliente();	
 			}
 			
 		}else if (leitor == 'T'){
