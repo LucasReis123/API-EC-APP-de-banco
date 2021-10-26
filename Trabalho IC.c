@@ -1,3 +1,6 @@
+##LUCAS REIS DAS CHAGAS
+##202104991
+
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
@@ -12,7 +15,7 @@
 	};
 	
 	
-	void bem_Vindo(){ // Inicia o código
+	void bem_Vindo(){ // Inicia o cÃ³digo
 		printf("============== Bem Vindo! ===============\n");
 		printf("Digite um comando a seguir para iniciar:\n");
 		printf("C - Gerenciar Clientes\n");
@@ -1791,7 +1794,7 @@
 			leitura = fopen("Contas2.txt", "r");
 			
 			fscanf(leitura, "%[^'\n']s", texto2);
-			while(fgets(texto, 1000, leitura) != NULL){ //COPIA OS DAODS DO CONTAS2.TXT PARA CONTAS.TXT FAZENDO AS ALTERAÇÕES NO SALDO
+			while(fgets(texto, 1000, leitura) != NULL){ //COPIA OS DAODS DO CONTAS2.TXT PARA CONTAS.TXT FAZENDO AS ALTERAÃ‡Ã•ES NO SALDO
 				if(i == d){
 					fprintf(arquivo, "%s\n", texto2);
 					fscanf(leitura, "%[^'\n']s", texto2);
@@ -1910,7 +1913,7 @@
 		}
 		
 		saldof = saldoa - valor;
-		if(saldof < 0){ // VERIFICA SE É POSSIVEL FAZER O SAQUE
+		if(saldof < 0){ // VERIFICA SE Ã‰ POSSIVEL FAZER O SAQUE
 			printf("Saldo insuficiente para essa saque!\n");
 			v2 = 1;
 		}
@@ -1957,7 +1960,7 @@
 			leitura = fopen("Contas2.txt", "r");
 			
 			fscanf(leitura, "%[^'\n']s", texto2);
-			while(fgets(texto, 1000, leitura) != NULL){ //COPIA OS DAODS DO CONTAS2.TXT PARA CONTAS.TXT FAZENDO AS ALTERAÇÕES NO SALDO
+			while(fgets(texto, 1000, leitura) != NULL){ //COPIA OS DAODS DO CONTAS2.TXT PARA CONTAS.TXT FAZENDO AS ALTERAÃ‡Ã•ES NO SALDO
 				if(i == d){
 					fprintf(arquivo, "%s\n", texto2);
 					fscanf(leitura, "%[^'\n']s", texto2);
@@ -2018,31 +2021,31 @@ int main(){
 	for(i = 0; leitor != 'S'; i++){
 		system("cls");
 		fflush(stdin);
-		bem_Vindo();                           // Início da execução
+		bem_Vindo();                           // InÃ­cio da execuÃ§Ã£o
 
-		scanf("%c", &leitor);                 // lê as opções de acesso
+		scanf("%c", &leitor);                 // lÃª as opÃ§Ãµes de acesso
 		system("cls");                        // Limpa tela
 	
 	
 		if(leitor == 'S'){
-			break;                            // Finalisa o código
+			break;                            // Finalisa o cÃ³digo
 		
 		}else if(leitor == 'C'){
-			gerenciarClientes();              //Chama a função 
+			gerenciarClientes();              //Chama a funÃ§Ã£o 
 			fflush(stdin);
 			scanf("%c", &leitor);
 			system("cls");
 			if(leitor == 'S'){
-				break;                           // Finalisa o código
+				break;                           // Finalisa o cÃ³digo
 				
 			}else if(leitor == 'C'){
 				contClientes++;
-				cadastraCliente();                 //Chama a função 
+				cadastraCliente();                 //Chama a funÃ§Ã£o 
 				
 			}else if(leitor == 'L'){
-				todosClientes();              //Chama a função
+				todosClientes();              //Chama a funÃ§Ã£o
 			}else if(leitor == 'B'){
-				buscaCliente();               //Chama a função
+				buscaCliente();               //Chama a funÃ§Ã£o
 			}else if(leitor == 'A'){
 				atualizaCliente();
 			}else if(leitor == 'E'){
@@ -2055,7 +2058,7 @@ int main(){
 			scanf("%c", &leitor);
 			system("cls");
 			if(leitor == 'S'){
-				break;                            // Finalisa o código
+				break;                            // Finalisa o cÃ³digo
 			}else if(leitor == 'C'){
 				cadastraConta();
 			}else if(leitor == 'R'){
