@@ -1,6 +1,3 @@
-##LUCAS REIS DAS CHAGAS
-##202104991
-
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
@@ -15,7 +12,7 @@
 	};
 	
 	
-	void bem_Vindo(){ // Inicia o cÃ³digo
+	void bem_Vindo(){ // Inicia o código
 		printf("============== Bem Vindo! ===============\n");
 		printf("Digite um comando a seguir para iniciar:\n");
 		printf("C - Gerenciar Clientes\n");
@@ -822,9 +819,6 @@
 		
 		fclose(leitura);
 		system("cls");
-		
-		leitura = fopen("Contas.txt", "r");
-	
 	
 		struct Contas conta;
 		
@@ -838,56 +832,28 @@
 			printf("Por favor, %s, digite o NUMERO DA CONTA:\n", nome);
 			fflush(stdin);
 			scanf("%[^'\n']s", &conta.ndaConta);
-	//		itoa(conta.ndaConta, res, 10);
 			
 			conta.saldo = 0;			
 		}
 		
+		leitura = fopen("Contas.txt", "r");
 		fscanf(leitura, "%[^'\n']s", texto2);
-		while(fgets(texto, 1000, leitura) != NULL){
-			k++;
-			
-			if(k%4 == 2){
-				if(strcmp(texto2, conta.agencia) == 0){
-					v2 = 1;
-					b[a] = cont + 1;
-					a++;
+		while(fgets(texto, 1000, leitura) != NULL){	// VERIFICA SE A CONTA JA EXISTE
+			if(strcmp(conta.agencia, texto2) == 0){
+				fscanf(leitura, "%[^'\n']s", texto2);
+				if(strcmp(texto2, conta.ndaConta) == 0){
+					v4 = 1;
 				}
-				k = -2;
 			}
-			cont++;
 			
 			fscanf(leitura, "%[^'\n']s", texto2);
 		}
 		fclose(leitura);
 		
 	
-		
-		for(i = 0; i <= a; i++){
-			leitura = fopen("Contas.txt", "r");
-			k = 0;
-			fscanf(leitura, "%[^'\n']s", texto2);
-			while(fgets(texto, 1000, leitura) != NULL){
-			
-				if(k == b[i]){
-					if(strcmp(texto2, res) == 0){
-						v3 = 1;
-					}
-				}
-				k++;
-				fscanf(leitura, "%[^'\n']s", texto2);
-			}
-			fclose(leitura);
-		}
-		
-		
-		
-		if((v2 == 1) && (v3 == 1)){
-			v4 = 1;
-		}
-		
-	
+
 		if(v4 == 1){
+			system("cls");
 			printf("Conta ja existente!\n");
 		}else if((v == 1) && (v4 == 0)){
 			arquivo = fopen("Contas.txt", "a");
@@ -963,7 +929,6 @@
 			printf("Por favor, %s, digite o NUMERO DA CONTA:\n", nome);
 			fflush(stdin);
 			scanf("%[^'\n']s", &conta.ndaConta);
-	//		itoa(conta.ndaConta, res, 10);
 			
 			conta.saldo = 0;			
 		}
@@ -1330,7 +1295,7 @@
 			fscanf(leitura, "%[^'\n']s", texto2);
 			while(fgets(texto, 1000, leitura) != NULL){
 				if(i == 1){
-					fscanf(leitura, "%f", &saldo);
+					saldo = atof(texto2);
 					fprintf(arquivo, "%f\n", saldo);
 					i--;
 				}
@@ -1363,11 +1328,12 @@
 			i = 1;
 			while(fgets(texto, 1000, leitura) != NULL){
 				if(i%4 == 0){
-					fscanf(leitura, "%f", vet[k]);           //SALVA OS SALDOS NO VET[K]
+					vet[k] = atof(texto2);
 					vet2[k] = i-1;                          //SALVA AS POSICOES DO SALDO NO VET2[K]
 					k++;
 				}
 				i++;
+				fscanf(leitura, "%[^'\n']s", texto2);
 			}
 			fclose(leitura);
 			
@@ -1389,7 +1355,6 @@
 			}	
 		}
 		
-		
 		if((v == 1) && (v2 == 1)){// SALVA NO ARQUIVOS CONTAS3 EM ORDEM DECRESCENTE DE SALDO
 			arquivo = fopen("Contas3.txt", "w");
 			fclose(arquivo);
@@ -1403,7 +1368,8 @@
 				
 				while(fgets(texto, 1000, leitura) != NULL){
 					if(vet2[k] - j == 0){
-						fprintf(arquivo, "%s\n", texto2);
+						saldo = atof(texto2);
+						fprintf(arquivo, "%f\n", saldo);
 						break;
 					}
 					
@@ -1439,7 +1405,8 @@
 			while(fgets(texto, 1000, leitura) != NULL){
 				
 				if(i == 3){
-					printf("SALDO do cliente: %s\n\n", texto2);
+					saldo = atof(texto2);
+					printf("SALDO do cliente: R$%0.2f\n\n", saldo);
 					i = -1;
 				}
 				
@@ -1528,7 +1495,7 @@
 			fscanf(leitura, "%[^'\n']s", texto2);
 			while(fgets(texto, 1000, leitura) != NULL){
 				if(i == 1){
-					fscanf(leitura, "%f", &saldo);
+					saldo = atof(texto2);
 					fprintf(arquivo, "%f\n", saldo);
 					i--;
 				}
@@ -1561,7 +1528,8 @@
 			i = 1;
 			while(fgets(texto, 1000, leitura) != NULL){
 				if(i%4 == 0){
-					fscanf(leitura, "%f", vet[k]);           //SALVA OS SALDOS NO VET[K]
+					fscanf(leitura, "%['\n']s", texto2);           //SALVA OS SALDOS NO VET[K]
+					saldo = atof(texto2);
 					vet2[k] = i-1;                          //SALVA AS POSICOES DO SALDO NO VET2[K]
 					k++;
 				}
@@ -1588,7 +1556,7 @@
 		}
 		
 		
-		if((v == 1) && (v2 == 1)){// SALVA NO ARQUIVOS CONTAS3 EM ORDEM DECRESCENTE DE SALDO
+		if((v == 1) && (v2 == 1)){                     // SALVA NO ARQUIVO CONTAS3 EM ORDEM DECRESCENTE DE SALDO
 			arquivo = fopen("Contas3.txt", "w");
 			fclose(arquivo);
 			k = 0;
@@ -1637,7 +1605,8 @@
 			while(fgets(texto, 1000, leitura) != NULL){
 				
 				if(i == 3){
-					printf("SALDO do cliente: %s\n\n", texto2);
+					saldo = atof(texto2);
+					printf("SALDO do cliente: R$%0.2f\n\n", saldo);
 					i = -1;
 				}
 				
@@ -1765,20 +1734,7 @@
 			
 			fscanf(leitura, "%[^'\n']s", texto2);
 			while(fgets(texto, 1000, leitura) != NULL){            //COPIA OS DADOS DE CONTAS.TXT PARA CONTAS2.TXT
-				if(i%4 == 1){
-					fprintf(arquivo, "%s\n", texto2);
-				}else if(i%4 == 2){
-					fprintf(arquivo, "%s\n", texto2);
-				}else if(i%4 == 3){
-					fprintf(arquivo, "%s\n", texto2);
-				
-				}else if(i%4 == 0){
-					fscanf(leitura, "%[^'\n']s", texto2);
-					fprintf(arquivo, "%s\n", texto2);	
-					i = 0;
-				}
-				
-				
+				fprintf(arquivo, "%s\n", texto2);			
 				fscanf(leitura, "%[^'\n']s", texto2);
 				i++;
 			}
@@ -1794,7 +1750,7 @@
 			leitura = fopen("Contas2.txt", "r");
 			
 			fscanf(leitura, "%[^'\n']s", texto2);
-			while(fgets(texto, 1000, leitura) != NULL){ //COPIA OS DAODS DO CONTAS2.TXT PARA CONTAS.TXT FAZENDO AS ALTERAÃ‡Ã•ES NO SALDO
+			while(fgets(texto, 1000, leitura) != NULL){ //COPIA OS DAODS DO CONTAS2.TXT PARA CONTAS.TXT FAZENDO AS ALTERAÇÕES NO SALDO
 				if(i == d){
 					fprintf(arquivo, "%s\n", texto2);
 					fscanf(leitura, "%[^'\n']s", texto2);
@@ -1815,8 +1771,9 @@
 					fscanf(leitura, "%[^'\n']s", texto2);
 				}else if(i%4 == 3){
 					fprintf(arquivo, "%s\n", texto2);
-					fscanf(leitura, "%f", &saldoa);	
+					fscanf(leitura, "%[^'\n']s", texto2);
 				}else if(i%4 == 0){
+					saldoa = atof(texto2);
 					fprintf(arquivo, "%f\n", saldoa);
 					fscanf(leitura, "%[^'\n']s", texto2);
 				}
@@ -1827,12 +1784,15 @@
 		}
 		
 		if(v == 1){
+			long long int tempdias;
+			tempdias = data->tm_mday + 30*(data->tm_mon + 1) + 365*(data->tm_year + 1900);
 			arquivo = fopen("Transacao.txt", "a");
 			
+			fprintf(arquivo, "%lld\n", tempdias);
 			fprintf(arquivo, "%s\n", conta.agencia);
 			fprintf(arquivo, "%s\n", conta.ndaConta);
 			fprintf(arquivo, "%d/%d/%d\n", data->tm_mday, data->tm_mon + 1, data->tm_year + 1900);
-			fprintf(arquivo, "+%f\n", valor);
+			fprintf(arquivo, "+R$%0.2f\n", valor);
 			fprintf(arquivo, "%s\n", descricao);
 			fclose(arquivo);
 		}
@@ -1846,7 +1806,7 @@
 		FILE *leitura;
 		FILE *arquivo;
 		char texto[1000], texto2[1000], descricao[100];
-		int i = 0, v = 0, d, v2 = 0;
+		int i = 0, v = 0, d, v2 = 0, saldoint, vet[7];
 		float valor, saldoa, saldof;
 		struct Contas conta;
 		struct tm *data = localtime(&data_tempo);
@@ -1891,9 +1851,7 @@
 					printf("NUMERO DA CONTA: %s\n", conta.ndaConta); //IMPRIME AS INFORMACOES DA CONTA
 				}
 				if(i == -3){
-					fflush(stdin);
-					fscanf(leitura, "%[^'\n']s", texto2);            //DESCOBRE O SALDO ATUAL DO CLIENTE
-					saldoa = atof(texto2);
+					saldoa = atof(texto2);           //DESCOBRE O SALDO ATUAL DO CLIENTE
 					printf("SALDO atual: R$%0.2f\n", saldoa);
 					break;
 				}
@@ -1911,10 +1869,10 @@
 			system("cls");
 		
 		}
-		
+		saldoint = (int)valor;
 		saldof = saldoa - valor;
-		if(saldof < 0){ // VERIFICA SE Ã‰ POSSIVEL FAZER O SAQUE
-			printf("Saldo insuficiente para essa saque!\n");
+		if(saldof < 0){ // VERIFICA SE É POSSIVEL FAZER O SAQUE
+			printf("Saldo insuficiente para esse saque!\n");
 			v2 = 1;
 		}
 		
@@ -1931,22 +1889,8 @@
 			
 			fscanf(leitura, "%[^'\n']s", texto2);
 			while(fgets(texto, 1000, leitura) != NULL){            //COPIA OS DADOS DE CONTAS.TXT PARA CONTAS2.TXT
-				if(i%4 == 1){
-					fprintf(arquivo, "%s\n", texto2);
-				}else if(i%4 == 2){
-					fprintf(arquivo, "%s\n", texto2);
-				}else if(i%4 == 3){
-					fprintf(arquivo, "%s\n", texto2);
-				
-				}else if(i%4 == 0){
-					fscanf(leitura, "%[^'\n']s", texto2);
-					fprintf(arquivo, "%s\n", texto2);
-					i = 0;
-				}
-				
-				
+				fprintf(arquivo, "%s\n", texto2);
 				fscanf(leitura, "%[^'\n']s", texto2);
-				i++;
 			}
 			
 			fclose(leitura);
@@ -1960,32 +1904,26 @@
 			leitura = fopen("Contas2.txt", "r");
 			
 			fscanf(leitura, "%[^'\n']s", texto2);
-			while(fgets(texto, 1000, leitura) != NULL){ //COPIA OS DAODS DO CONTAS2.TXT PARA CONTAS.TXT FAZENDO AS ALTERAÃ‡Ã•ES NO SALDO
+			while(fgets(texto, 1000, leitura) != NULL){ //COPIA OS DAODS DO CONTAS2.TXT PARA CONTAS.TXT FAZENDO AS ALTERAÇÕES NO SALDO
 				if(i == d){
 					fprintf(arquivo, "%s\n", texto2);
-					fscanf(leitura, "%[^'\n']s", texto2);
 				}else if(i == d + 1){
 					fprintf(arquivo, "%s\n", texto2);
-					fscanf(leitura, "%[^'\n']s", texto2);
 				}else if(i == d + 2){
 					fprintf(arquivo, "%s\n", texto2);
-					fscanf(leitura, "%[^'\n']s", texto2);
 				}else if(i == d + 3){
 					fprintf(arquivo, "%f\n", saldof);
-					fscanf(leitura, "%[^'\n']s", texto2);
 				}else if(i%4 == 1){
 					fprintf(arquivo, "%s\n", texto2);
-					fscanf(leitura, "%[^'\n']s", texto2);
 				}else if(i%4 == 2){
 					fprintf(arquivo, "%s\n", texto2);
-					fscanf(leitura, "%[^'\n']s", texto2);
 				}else if(i%4 == 3){
-					fprintf(arquivo, "%s\n", texto2);
-					fscanf(leitura, "%f", &saldoa);	
+					fprintf(arquivo, "%s\n", texto2);	
 				}else if(i%4 == 0){
+					saldoa = atof(texto2);
 					fprintf(arquivo, "%f\n", saldoa);
-					fscanf(leitura, "%[^'\n']s", texto2);
 				}
+				fscanf(leitura, "%[^'\n']s", texto2);
 				i++;
 			}
 			fclose(arquivo);
@@ -1993,18 +1931,500 @@
 		}
 		
 		if((v == 1) && (v2 == 0)){
+			long long int tempdias;
+			tempdias = data->tm_mday + 30*(data->tm_mon + 1) + 365*(data->tm_year + 1900);
 			arquivo = fopen("Transacao.txt", "a");
 			
+			fprintf(arquivo, "%lld\n", tempdias);
 			fprintf(arquivo, "%s\n", conta.agencia);
 			fprintf(arquivo, "%s\n", conta.ndaConta);
 			fprintf(arquivo, "%d/%d/%d\n", data->tm_mday, data->tm_mon + 1, data->tm_year + 1900);
-			fprintf(arquivo, "-%f\n", valor);
+			fprintf(arquivo, "-R$%0.2f\n", valor);
 			fprintf(arquivo, "%s\n", descricao);
 			fclose(arquivo);
 		}
+		
+		for(i = 0; i < 7; i++){
+			vet[i] = 0;
+		}
+	
+	
+		while(saldoint >= 200){
+			vet[0] ++;
+			saldoint = saldoint - 200;
+		}
+		while(saldoint >= 100){
+			vet[1] ++;
+			saldoint = saldoint - 100;
+		}
+		while(saldoint >= 50){
+			vet[2] ++;
+			saldoint = saldoint - 50;
+		}
+		while(saldoint >= 20){
+			vet[3] ++;
+			saldoint = saldoint - 20;
+		}
+		while(saldoint >= 10){
+			vet[4] ++;
+			saldoint = saldoint - 10;
+		}
+		while(saldoint >= 5){
+			vet[5] ++;
+			saldoint = saldoint - 5;
+		}
+		while(saldoint > 2){
+			vet[6] ++;
+			saldoint = saldoint - 2;
+		}
+		printf("Quantidade de NOTAS SACADAS:\n");
+		printf("%d -- R$200\n", vet[0]);
+		printf("%d -- R$100\n", vet[1]);
+		printf("%d -- R$50\n", vet[2]);
+		printf("%d -- R$20\n", vet[3]);
+		printf("%d -- R$10\n", vet[4]);
+		printf("%d -- R$5\n", vet[5]);
+		printf("%d -- R$2\n", vet[6]);
+
+		
 		system("pause");
 	}
 
+	void transferenciaContas(){
+		time_t data_tempo;
+		time(&data_tempo);
+		FILE *leitura;
+		FILE *arquivo;
+		char texto[1000], texto2[1000];
+		int v = 0, v1 = 0, i = 0, d = 0, d1 = 0;
+		float transferencia;
+		
+		struct Contas contasaq;
+		struct Contas contadep;
+		struct tm *data = localtime(&data_tempo);
+		
+		printf("Informe a AGENCIA da conta que realizara o SAQUE:\n");
+		fflush(stdin);
+		scanf("%[^'\n']s", &contasaq.agencia);
+		system("cls");
+		printf("Informe o NUMERO DA CONTA que realizara o SAQUE:\n");
+		fflush(stdin);
+		scanf("%[^'\n']s", &contasaq.ndaConta);
+		system("cls");
+		
+		leitura = fopen("Contas.txt", "r");
+		fscanf(leitura, "%[^'\n']s", texto2);
+		while(fgets(texto, 1000, leitura) != NULL){            //DESCOBRE A POSICAO DO NOME DO CLIENTE
+			if(strcmp(contasaq.agencia, texto2) == 0){
+				fscanf(leitura, "%[^'\n']s", texto2);
+				if(strcmp(contasaq.ndaConta, texto2) == 0){
+					v = 1;
+					break;
+				}
+			}
+			fscanf(leitura, "%[^'\n']s", texto2);
+			i++;
+		}
+		fclose(leitura);
+		
+		i--;
+		d = i;
+		
+		if(v == 0){
+			printf("Conta nao cadastrada!\n");
+		}else if(v == 1){
+			leitura = fopen("Contas.txt", "r");
+			fscanf(leitura, "%[^'\n']s", texto2);
+			while(fgets(texto, 1000, leitura) != NULL){                 //DESCOBRE O NOME DO CLIENTE E SALVA EM CONTASAQ.CLIENTE
+				if(i == 0){
+					strcpy(contasaq.cliente, texto2);
+					printf("NOME: %s\n", contasaq.cliente);
+					printf("AGENCIA: %s\n", contasaq.agencia);
+					printf("NUMERO DA CONTA: %s\n", contasaq.ndaConta); //IMPRIME AS INFORMACOES DA CONTA
+				}
+				if(i == -3){
+					contasaq.saldo = atof(texto2);                       //DESCOBRE O SALDO ATUAL DO CLIENTE
+					printf("SALDO atual: R$%0.2f\n", contasaq.saldo);
+					break;
+				}
+				fscanf(leitura, "%[^'\n']s", texto2);
+				i--;
+			}
+			fclose(leitura);
+			printf("Conta que realizara o SAQUE!\n");
+			system("pause");
+		}
+		
+		system("cls");
+		printf("Informe a AGENCIA da conta que realizara o DEPOSITO:\n");
+		fflush(stdin);
+		scanf("%[^'\n']s", &contadep.agencia);
+		system("cls");
+		printf("Informe o NUMERO DA CONTA que realizara o DEPOSITO:\n");
+		fflush(stdin);
+		scanf("%[^'\n']s", &contadep.ndaConta);
+		system("cls");
+		
+		i = 0;
+		v = 0;
+		
+		leitura = fopen("Contas.txt", "r");
+		fscanf(leitura, "%[^'\n']s", texto2);
+		while(fgets(texto, 1000, leitura) != NULL){            //DESCOBRE A POSICAO DO NOME DO CLIENTE
+			if(strcmp(contadep.agencia, texto2) == 0){
+				fscanf(leitura, "%[^'\n']s", texto2);
+				if(strcmp(contadep.ndaConta, texto2) == 0){
+					v = 1;
+					break;
+				}
+			}
+			fscanf(leitura, "%[^'\n']s", texto2);
+			i++;
+		}
+		fclose(leitura);
+		
+		i--;
+		d1 = i;
+		
+		if(v == 0){
+			printf("Conta nao cadastrada!\n");
+		}else if(v == 1){
+			leitura = fopen("Contas.txt", "r");
+			fscanf(leitura, "%[^'\n']s", texto2);
+			while(fgets(texto, 1000, leitura) != NULL){            //DESCOBRE O NOME DO CLIENTE E SALVA EM CONTADEP.CLIENTE
+				if(i == 0){
+					strcpy(contadep.cliente, texto2);
+					printf("NOME: %s\n", contadep.cliente);
+					printf("AGENCIA: %s\n", contadep.agencia);
+					printf("NUMERO DA CONTA: %s\n", contadep.ndaConta); //IMPRIME AS INFORMACOES DA CONTA
+				}
+				if(i == -3){
+					contadep.saldo = atof(texto2);             //DESCOBRE O SALDO ATUAL DO CLIENTE
+					printf("SALDO atual: R$%0.2f\n", contadep.saldo);
+					break;
+				}
+				fscanf(leitura, "%[^'\n']s", texto2);
+				i--;
+			}
+			fclose(leitura);
+			printf("Conta que realizara o DEPOSITO!\n");
+			system("pause");
+		}
+		
+		if(v == 1){
+			system("cls");
+			printf("Informe o valor da transferencia:\n");
+			scanf("%f", &transferencia);
+			
+			if((contasaq.saldo - transferencia) >= 0){
+				v1 = 1;
+			}else{
+				v = 0;
+			}
+			
+			if(v1 == 0){
+				printf("Valor para saque indisponivel!\n");
+			}
+		}
+		
+		if((v == 1) && (v1 == 1)){
+			i = 0;
+			contasaq.saldo = contasaq.saldo - transferencia;
+			contadep.saldo = contadep.saldo + transferencia;
+			
+			leitura = fopen("Contas.txt", "r");
+			arquivo = fopen("Contas2.txt", "w");
+			fscanf(leitura, "%[^'\n']s", texto2);
+			while(fgets(texto, 1000, leitura) != NULL){
+				if(d+3 == i){
+					fprintf(arquivo,"%f\n", contasaq.saldo);
+				}else if(d1+3 == i){
+					fprintf(arquivo,"%f\n", contadep.saldo);
+				}else{
+					fprintf(arquivo,"%s\n", texto2);
+				}
+				fscanf(leitura, "%[^'\n']s", texto2);
+				i++;
+			}
+			fclose(leitura);
+			fclose(arquivo);
+			
+			leitura = fopen("Contas2.txt", "r");
+			arquivo = fopen("Contas.txt", "w");
+			fscanf(leitura, "%[^'\n']s", texto2);
+			while(fgets(texto, 1000, leitura) != NULL){
+				
+				fprintf(arquivo,"%s\n", texto2);
+				fscanf(leitura, "%[^'\n']s", texto2);
+			}
+			fclose(arquivo);
+			fclose(leitura);
+			
+			long long int tempdias;
+			tempdias = data->tm_mday + 30*(data->tm_mon + 1) + 365*(data->tm_year + 1900);
+			
+			arquivo = fopen("transacao.txt","a");
+			fprintf(arquivo, "%lld\n", tempdias);
+			fprintf(arquivo,"%s\n", contasaq.agencia);
+			fprintf(arquivo,"%s\n", contasaq.ndaConta);
+			fprintf(arquivo, "%d/%d/%d\n", data->tm_mday, data->tm_mon + 1, data->tm_year + 1900);
+			fprintf(arquivo,"-R$%0.2f\n", transferencia);
+			fprintf(arquivo,"Transferencia para conta:%s-%s\n", contadep.agencia, contadep.ndaConta);
+			
+			fprintf(arquivo, "%lld\n", tempdias);
+			fprintf(arquivo,"%s\n", contadep.agencia);
+			fprintf(arquivo,"%s\n", contadep.ndaConta);
+			fprintf(arquivo, "%d/%d/%d\n", data->tm_mday, data->tm_mon + 1, data->tm_year + 1900);
+			fprintf(arquivo,"+R$%0.2f\n", transferencia);
+			fprintf(arquivo,"Transferencia de conta:%s-%s\n", contasaq.agencia, contasaq.ndaConta);
+			fclose(arquivo);
+		}
+		
+		system("pause");
+	}
+	
+	void extratoConta(){
+		time_t data_tempo;
+		time(&data_tempo);
+		FILE *leitura;
+		FILE *arquivo;
+		int i = 0, v = 0, ndias = 0, d = 0, cont = 0, cont1 = 0, pos[1000], v1 = 0, v2 = 0, k = 0, j;
+		int dia, mes, ano;
+		long long int diaatual, diasContas[1000];
+		char texto[1000], texto2[1000];
+		
+		
+		struct tm *data = localtime(&data_tempo);
+		struct Contas conta;
+		printf("Informe a AGENCIA da conta:\n");
+		fflush(stdin);
+		scanf("%[^'\n']s", conta.agencia);
+		system("cls");
+		printf("Informe O NUMERO DA CONTA:\n");
+		fflush(stdin);
+		scanf("%[^'\n']s", conta.ndaConta);
+		system("cls");
+		
+		leitura = fopen("Contas.txt", "r");
+		fscanf(leitura, "%[^'\n']s", texto2);
+		while(fgets(texto, 1000, leitura) != NULL){            //DESCOBRE A POSICAO DO NOME DO CLIENTE
+			if(strcmp(conta.agencia, texto2) == 0){
+				fscanf(leitura, "%[^'\n']s", texto2);
+				if(strcmp(conta.ndaConta, texto2) == 0){
+					v = 1;
+					break;
+				}
+			}
+			fscanf(leitura, "%[^'\n']s", texto2);
+			i++;
+		}
+		fclose(leitura);
+		
+		i--;
+		d = i;
+		
+		if(v == 0){
+			printf("Conta nao cadastrada!\n");
+		}else if(v == 1){
+			leitura = fopen("Contas.txt", "r");
+			fscanf(leitura, "%[^'\n']s", texto2);
+			while(fgets(texto, 1000, leitura) != NULL){                 //DESCOBRE O NOME DO CLIENTE E SALVA EM CONTASAQ.CLIENTE
+				if(i == 0){
+					strcpy(conta.cliente, texto2);
+					printf("NOME: %s\n", conta.cliente);
+					printf("AGENCIA: %s\n", conta.agencia);
+					printf("NUMERO DA CONTA: %s\n", conta.ndaConta); //IMPRIME AS INFORMACOES DA CONTA
+				}
+				if(i == -3){
+					conta.saldo = atof(texto2);                       //DESCOBRE O SALDO ATUAL DO CLIENTE
+					printf("SALDO atual: R$%0.2f\n", conta.saldo);
+					break;
+				}
+				fscanf(leitura, "%[^'\n']s", texto2);
+				i--;
+			}
+			fclose(leitura);
+			printf("Por favor, informe o NUMERO DE DIAS que deseja exibir no extrato!\n");
+			scanf("%d", &ndias);
+			system("cls");
+			
+			dia = data->tm_mday;
+			mes = data->tm_mon +1;
+			ano = data->tm_year + 1900;
+			diaatual = dia + (mes*30) + (ano*365);
+		
+			i = 0;	
+			leitura = fopen("Transacao.txt", "r");
+			fscanf(leitura, "%[^'\n']s", texto2);
+			while(fgets(texto, 1000, leitura) != NULL){            //DESCOBRE A POSICAO DAS TRANSACOES FEITAS NA CONTA
+				if(strcmp(conta.agencia, texto2) == 0){
+					fscanf(leitura, "%[^'\n']s", texto2);
+					if(strcmp(conta.ndaConta, texto2) == 0){
+						pos[cont] = i-1;
+						cont++;
+						v1 = 1;
+					}
+				}
+				fscanf(leitura, "%[^'\n']s", texto2);
+				i++;
+			}
+			fclose(leitura);
+		}
+		
+		if((v == 1) && v1 == 0){
+			printf("Nenhuma transacao feita na conta!\n");
+		}else if((v == 1) && (v1 == 1)){
+			arquivo = fopen("Contas2.txt", "w");
+			for(i = 0; i < cont; i++){
+				leitura = fopen("Transacao.txt", "r");
+				k = 0;
+				
+				fscanf(leitura, "%[^'\n']s", texto2);
+				while(fgets(texto, 1000, leitura) != NULL){            //SALVA TODAS AS CONTAS DO CLIENTE EM CONTAS2.TXT
+					if(k == pos[i]){
+						fprintf(arquivo, "%s\n", texto2);
+					}else if(k == pos[i] + 1){
+						fprintf(arquivo, "%s\n", texto2);
+					}else if(k == pos[i] + 2){
+						fprintf(arquivo, "%s\n", texto2);
+					}else if(k == pos[i] + 3){
+						fprintf(arquivo, "%s\n", texto2);
+					}else if(k == pos[i] + 4){
+						fprintf(arquivo, "%s\n", texto2);
+					}else if(k == pos[i] + 5){
+						fprintf(arquivo, "%s\n", texto2);
+					}
+					fscanf(leitura, "%[^'\n']s", texto2);
+					k++;
+				}
+				fclose(leitura);
+			}
+			fclose(arquivo);
+			
+			arquivo = fopen("Contas3.txt", "w");
+			for(i = 0; i < cont; i++){
+				
+				k = 1;
+				leitura = fopen("Contas2.txt", "r");
+				fscanf(leitura, "%[^'\n']s", texto2);
+				while(fgets(texto, 1000, leitura) != NULL){
+					if(k == 6*i + 1){
+						diasContas[cont1] = atoi(texto2);
+						if((diaatual - diasContas[cont1]) <= ndias){
+							v2 = 1;
+						}
+						cont1++;
+						break;
+					}
+					k++;
+					fscanf(leitura, "%[^'\n']s", texto2);
+				}
+				fclose(leitura);
+				
+				if(v2 == 1){
+					v2 = 0;
+					leitura = fopen("Contas2.txt", "r");
+					j = 1;
+					
+					fscanf(leitura, "%[^'\n']s", texto2);
+					while(fgets(texto, 1000, leitura) != NULL){ // SALVA NO ARQUIVO CONTAS3.TXT AS TRANSACOES FEITAS DESDE nDIAS PEDIDOS
+						if(j == k+1){
+							fprintf(arquivo, "%s\n", texto2);
+						}else if(j == k+2){
+							fprintf(arquivo, "%s\n", texto2);
+						}else if(j == k+3){
+							fprintf(arquivo, "%s\n", texto2);
+						}else if(j == k+4){
+							fprintf(arquivo, "%s\n", texto2);
+						}else if(j == k+5){
+							fprintf(arquivo, "%s\n", texto2);
+						}
+						j++;
+						fscanf(leitura, "%[^'\n']s", texto2);
+					}
+					fclose(leitura);
+					
+				} 
+			}
+			fclose(arquivo);
+			
+			printf("Essas sao as transacoes realizadas em %d dia(s):\n", ndias);
+			leitura = fopen("Contas3.txt", "r");
+			fscanf(leitura, "%[^'\n']s", texto2);
+			i = 1; 
+			while(fgets(texto, 1000, leitura) != NULL){     // SALVA NO ARQUIVO CONTAS3.TXT AS TRANSACOES FEITAS DESDE nDIAS PEDIDOS
+				if(i%5 == 1){
+					printf("AGENCIA: %s\n", texto2);
+				}else if(i%5 == 2){
+					printf("NUMERO DA CONTA: %s\n", texto2);
+				}else if(i%5 == 3){
+					printf("DATA DA TRANSACAO: %s\n", texto2);
+				}else if(i%5 == 4){
+					printf("VALOR DA TRANSACAO: %s\n", texto2);
+				}else if(i%5 == 0){
+					printf("DESCRICAO: %s\n\n", texto2);
+					i = 0;
+				}
+				i++;
+				fscanf(leitura, "%[^'\n']s", texto2);
+			}
+			fclose(leitura);
+			
+		}
+		system("pause");
+	}
+	
+	int verificaClientes(){
+		FILE *leitura;
+		char texto[1000], texto2[1000];
+		int i = 0, retorno = 0;
+		
+		leitura = fopen("Clientes.txt", "r");
+		fscanf(leitura, "%[^'\n']s", texto2);
+		while(fgets(texto, 1000, leitura) != NULL){
+			i++;
+			fscanf(leitura, "%[^'\n']s", texto2);
+		}
+		retorno = i/5;
+		
+		fclose(leitura);
+		return(retorno);
+	}
+	
+	int verificaContas(){
+		FILE *leitura;
+		char texto[1000], texto2[1000];
+		int i = 0, retorno = 0;
+		
+		leitura = fopen("Contas.txt", "r");
+		fscanf(leitura, "%[^'\n']s", texto2);
+		while(fgets(texto, 1000, leitura) != NULL){
+			i++;
+			fscanf(leitura, "%[^'\n']s", texto2);
+		}
+		retorno = i/4;
+		
+		fclose(leitura);
+		return(retorno);
+	}
+	
+	int verificaTransacoes(){
+		FILE *leitura;
+		char texto[1000], texto2[1000];
+		long int i = 0;
+		int retorno = 0;
+		
+		leitura = fopen("Transacao.txt", "r");
+		fscanf(leitura, "%[^'\n']s", texto2);
+		while(fgets(texto, 1000, leitura) != NULL){
+			i++;
+			fscanf(leitura, "%[^'\n']s", texto2);
+		}
+		retorno = i/6;
+		
+		fclose(leitura);
+		return(retorno);
+	}
 //-------------------------------------------------------------------------------------------------------------------------------------
 int main(){
 	char leitor;
@@ -2021,31 +2441,35 @@ int main(){
 	for(i = 0; leitor != 'S'; i++){
 		system("cls");
 		fflush(stdin);
-		bem_Vindo();                           // InÃ­cio da execuÃ§Ã£o
+		bem_Vindo();                           // Início da execução
 
-		scanf("%c", &leitor);                 // lÃª as opÃ§Ãµes de acesso
+		scanf("%c", &leitor);                 // lê as opções de acesso
 		system("cls");                        // Limpa tela
 	
 	
 		if(leitor == 'S'){
-			break;                            // Finalisa o cÃ³digo
+			break;                            // Finalisa o código
 		
 		}else if(leitor == 'C'){
-			gerenciarClientes();              //Chama a funÃ§Ã£o 
+			gerenciarClientes();              //Chama a função 
 			fflush(stdin);
 			scanf("%c", &leitor);
 			system("cls");
 			if(leitor == 'S'){
-				break;                           // Finalisa o cÃ³digo
+				break;                           // Finalisa o código
 				
 			}else if(leitor == 'C'){
-				contClientes++;
-				cadastraCliente();                 //Chama a funÃ§Ã£o 
+				if(contClientes == 100){
+					printf("Numero de CLIENTES chegou ao limite!\n");
+					system("pause");
+				}else {
+					cadastraCliente();                 //Chama a função 
+				}
 				
 			}else if(leitor == 'L'){
-				todosClientes();              //Chama a funÃ§Ã£o
+				todosClientes();              //Chama a função
 			}else if(leitor == 'B'){
-				buscaCliente();               //Chama a funÃ§Ã£o
+				buscaCliente();               //Chama a função
 			}else if(leitor == 'A'){
 				atualizaCliente();
 			}else if(leitor == 'E'){
@@ -2058,20 +2482,50 @@ int main(){
 			scanf("%c", &leitor);
 			system("cls");
 			if(leitor == 'S'){
-				break;                            // Finalisa o cÃ³digo
+				break;                            // Finalisa o código
 			}else if(leitor == 'C'){
-				cadastraConta();
+				if(contContas == 200){
+					printf("Numero de CONTAS chegou ao limite!\n");
+					system("pause");
+				}else{
+					cadastraConta();
+				}
 			}else if(leitor == 'R'){
 				listarContas();
 			}else if(leitor == 'L'){
 				listarConta();
 			}else if(leitor == 'D'){
-				depositaConta();
+				if(contTransacoes == 1000){
+					printf("Numero de TRANSACOES chegou ao limite!\n");
+					system("pause");
+				}else{
+					depositaConta();
+				}
 			}else if(leitor == 'W'){
-				saqueConta();
+				if(contTransacoes == 1000){
+					printf("Numero de TRANSACOES chegou ao limite!\n");
+					system("pause");
+				}else{
+					saqueConta();
+				}
+			}else if(leitor == 'T'){
+				if(contTransacoes == 1000){
+					printf("Numero de TRANSACOES chegou ao limite!\n");
+					system("pause");
+				}else{
+					transferenciaContas();
+				}
+			}else if(leitor == 'E'){
+				extratoConta();
 			}
 		}
-		
+		contClientes = verificaClientes();
+		contContas = verificaContas();
+		contTransacoes = verificaTransacoes();
+		printf("%d\n", contClientes);
+		printf("%d\n", contContas);
+		printf("%d\n", contTransacoes);
+		system("pause");
 
 	}
 
