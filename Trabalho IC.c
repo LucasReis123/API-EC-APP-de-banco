@@ -1,3 +1,6 @@
+//LUCAS REIS DAS CHAGAS
+//202104991
+
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
@@ -38,7 +41,7 @@
 		printf("Digite um comando para prosseguir:\n");
 		printf("R - Listagem de todas as contas cadastradas\n");
 		printf("C - Cadastrar uma conta para um cliente\n");
-		printf("L - Listar todas cas contas de um cliente\n");
+		printf("L - Listar todas as contas de um cliente\n");
 		printf("W - Realizar um saque em uma conta\n");
 		printf("D - Realizar um deposito em uma conta\n");
 		printf("T - Realizar transferencia entre contas\n");
@@ -1011,29 +1014,30 @@
 		}
 	}
 	
+	
 	void listarContas(){
 		FILE *leitura;
-		FILE *arquivo;
-		FILE *arquivoteste;
-		int i = 4, cont = 0, x, y, k = 0;
+		int i = 4, cont = 0, x, y, k = 0, v = 0, v2 = 0, v3 = 0, posicao[200];
 		char texto[1000], texto2[1000], ordem[200][80], aux[80];
-		float saldo1, saldo2;
-		leitura = fopen("Contas.txt", "r");
-		arquivo = fopen("Contas2.txt", "w");
-		fclose(arquivo);
-		arquivoteste = fopen("Contateste.txt", "w");
-		fclose(arquivoteste);
-		
+		float saldo1, saldo2, ordemS[200], auxf;
+	
+		leitura = fopen("Contas.txt", "r");	
 		fscanf(leitura, "%[^'\n']s", texto2);
-		while(fgets(texto, 1000, leitura) != NULL){
+		while(fgets(texto, 1000, leitura) != NULL){ // COLOCA OS NOME DE TODOS CLIENTES NO VETOR ORDEM
 			if(i == 4){
 				strcpy(ordem[cont], texto2);
 				cont++;
 				i = 0;
+				v = 1;
+			}
+			if(i == 3){
+				auxf = atof(texto2);
+				ordemS[cont - 1] = auxf;
 			}
 			fscanf(leitura, "%[^'\n']s", texto2);
 			i++;
 		}
+
 		
 		if(ftell(leitura) != 0){
 			for(x = 0; x < cont; x++){
@@ -1042,194 +1046,85 @@
 						strcpy(aux, ordem[x]);
 						strcpy(ordem[x], ordem[y]);         // COLOCA OS NOMES DOS CLIENTES TEM ORDEM ALFABETICA
 						strcpy(ordem[y], aux);
+						
+						auxf = ordemS[x];
+						ordemS[x] = ordemS[y];
+						ordemS[y] = auxf;
 					}
 				}
 			}
-	/*		printf("Nome de todos os clientes cadastrados: \n");
-			
-			for(x = 0; x < cont; x++){
-				printf("%s\n", ordem[x]);
-			}
-	*/	}
-		
-		
-		if(ftell(leitura) == 0){
+		}else if(ftell(leitura) == 0){
 			printf("Nenhuma conta cadastrada!\n");
 		}
 		fclose(leitura);
 		
-		i = 0;
 		
-	/*	for(x = 0; i < cont; i++){
-			for(y = x+1; y < cont; y++){
-				if(strcmp(ordem[x], ordem[y]) == 0){
-					leitura = fopen("Contas.txt", "r");
-					fscanf(leitura, "%[^'\n']s", texto2);
-					while(fgets(texto, 1000, leitura) != NULL){
-						if(k == 1){
-							fprintf(arquivoteste, "%f\n", saldo1);
-							k--;
-							break;
+		if(v == 1){
+			for(i = 0; i < cont; i++){
+				for(x = 0; x < cont; x++){
+					for(y = x + 1; y < x + 2; y++){
+						if((strcmp(ordem[x], ordem[y]) == 0) && (ordemS[x] < ordemS[y])){ // COLOCA OS VETORES EM ORDEM DECRESCENTE
+							auxf = ordemS[x];
+							ordemS[x] = ordemS[y];
+							ordemS[y] = auxf;
 						}
-						
-						if(k == 2){
-							fprintf(arquivoteste, "%s\n", texto2);
-							fscanf(leitura, "%f", saldo1);
-							k--;
-						}
-						if(k == 3){
-							fprintf(arquivoteste, "%s\n", texto2);
-							k--;
-						
-						}
-						if(strcmp(ordem[i], texto2) == 0){
-							fprintf(arquivoteste, "%s\n", texto2);
-							k = 3;
-						}
-						fscanf(leitura, "%[^'\n']s", texto2);
 					}
-					
-					while(fgets(texto, 1000, leitura) != NULL){
-						if(k == 1){
-							fprintf(arquivoteste, "%f\n", saldo2);
-							k--;
-							break;
-						}
-						
-						if(k == 2){
-							fprintf(arquivoteste, "%s\n", texto2);
-							fscanf(leitura, "%f", saldo2);
-							k--;
-						}
-						if(k == 3){
-							fprintf(arquivoteste, "%s\n", texto2);
-							k--;
-						
-						}
-						if(strcmp(ordem[i], texto2) == 0){
-							fprintf(arquivoteste, "%s\n", texto2);
-							k = 3;
-						}
-						fscanf(leitura, "%[^'\n']s", texto2);
-					}
-					fclose(leitura);
-					if(saldo2 > saldo1){
-						k = 7;
-						leitura = fopen("Contateste.txt", "r");
-						arquivo = fopen("Contas2.txt", "a");
-						fscanf(leitura, "%[^'\n']s", texto2);
-						while(fgets(texto, 1000, leitura) != NULL){
-							if(k == 0){
-								fprintf(arquivo, "%f\n", saldo2);
-								break;
-							}
-							
-							if(k == 1){
-								fprintf(arquivo, "%s\n", texto2);
-							}
-							if(k == 2){
-								fprintf(arquivo, "%s\n", texto2);
-							
-							}
-							if(k == 3){
-								fprintf(arquivo, "%s\n", texto2);
-							}
-							fscanf(leitura, "%[^'\n']s", texto2);
-							k--;
-						}
-						k = 0;
-						fclose(arquivo);
-						fclose(leitura);
-					}else{
-						k = 3;
-						leitura = fopen("Contateste.txt", "r");
-						arquivo = fopen("Contas2.txt", "a");
-						fscanf(leitura, "%[^'\n']s", texto2);
-						while(fgets(texto, 1000, leitura) != NULL){
-							if(k == 0){
-								fprintf(arquivo, "%f\n", saldo1);
-								break;
-							}
-							
-							if(k == 1){
-								fprintf(arquivo, "%s\n", texto2);
-							}
-							if(k == 2){
-								fprintf(arquivo, "%s\n", texto2);
-							
-							}
-							if(k == 3){
-								fprintf(arquivo, "%s\n", texto2);
-							}
-							fscanf(leitura, "%[^'\n']s", texto2);
-							k--;
-						}
-						k = 0;
-						fclose(arquivo);
-						fclose(leitura);
-					}
-					
-				}else{
-					arquivo = fopen("Contas2.txt", "a");
-					fscanf(leitura, "%[^'\n']s", texto2);
-					while(fgets(texto, 1000, leitura) != NULL){
-						if(k == 1){
-							fprintf(arquivo, "%s\n", texto2);
-							k--;
-						}
-						
-						if(k == 2){
-							fprintf(arquivo, "%s\n", texto2);
-							k--;
-						}
-						if(k == 3){
-							fprintf(arquivo, "%s\n", texto2);
-							k--;
-						
-						}
-						if(strcmp(ordem[i], texto2) == 0){
-							fprintf(arquivo, "%s\n", texto2);
-							k = 3;
-						}
-						fscanf(leitura, "%[^'\n']s", texto2);
-					}
-					fclose(leitura);
-					fclose(arquivo);
 				}
-			
 			}
 		}
-*/		
+			
+		i = 4;
 		
-		for(i = 0; i < cont; i){
+		for(i = 0; i < cont; i++){
+			x = 0;
+			y = 0;
 			leitura = fopen("Contas.txt", "r");
 			fscanf(leitura, "%[^'\n']s", texto2);
-			while(fgets(texto, 1000, leitura) != NULL){
-				
-				
-				if(k == 1){
-					printf("Saldo do cliente: RS%s\n\n", texto2);
-					k--;
+			while(fgets(texto, 1000, leitura) != NULL){ // COLOCA OS NOME DE TODOS CLIENTES NO VETOR ORDEM
+				if(x == 0){
+					if(strcmp(ordem[i], texto2) == 0){
+						v2 = 1;
+					}
+
 				}
-				
-				if(k == 2){
-					printf("NUMERO DA CONTA do cliente: %s\n", texto2);
-					k--;
-				}
-				if(k == 3){
-					printf("AGENCIA do cliente: %s\n", texto2);
-					k--;
-				
-				}
-				if(strcmp(ordem[i], texto2) == 0){
-					printf("NOME do cliente: %s\n", texto2);
-					k = 3;
-					i++;
+				if(x == 3){
+					if((v2 == 1) && (ordemS[i] == atof(texto2))){
+						posicao[i] = y - 3;
+						v2 = 0;
+						break;
+					}
+					v2 = 0;
+					x = -1;
 				}
 				fscanf(leitura, "%[^'\n']s", texto2);
+				x++;
+				y++;
 			}
 			fclose(leitura);
 		}
+				
+		for(i = 0; i < cont; i++){
+			x = 0;
+			leitura = fopen("Contas.txt", "r");
+			fscanf(leitura, "%[^'\n']s", texto2);
+			while(fgets(texto, 1000, leitura) != NULL){
+				if(x == posicao[i]){
+					printf("NOME: %s\n", texto2);
+				}else if(x == posicao[i] + 1){
+					printf("AGENCIA: %s\n", texto2);
+				}else if(x == posicao[i] + 2){
+					printf("NUMERO DA CONTA: %s\n", texto2);
+				}else if(x == posicao[i] + 3){
+					auxf = atof(texto2);
+					printf("SALDO: R$%0.2f\n\n", auxf);
+				}
+				fscanf(leitura, "%[^'\n']s", texto2);
+				x++;
+			}
+			fclose(leitura);
+		}	
+		
+		
 		system("pause");
 	}
 	
@@ -2447,18 +2342,18 @@ int main(){
 		system("cls");                        // Limpa tela
 	
 	
-		if(leitor == 'S'){
+		if((leitor == 'S') || (leitor == 's')){
 			break;                            // Finalisa o código
 		
-		}else if(leitor == 'C'){
+		}else if((leitor == 'C') || (leitor == 'c')){
 			gerenciarClientes();              //Chama a função 
 			fflush(stdin);
 			scanf("%c", &leitor);
 			system("cls");
-			if(leitor == 'S'){
+			if((leitor == 'S') || (leitor == 's')){
 				break;                           // Finalisa o código
 				
-			}else if(leitor == 'C'){
+			}else if((leitor == 'C') || (leitor == 'c')){
 				if(contClientes == 100){
 					printf("Numero de CLIENTES chegou ao limite!\n");
 					system("pause");
@@ -2466,66 +2361,62 @@ int main(){
 					cadastraCliente();                 //Chama a função 
 				}
 				
-			}else if(leitor == 'L'){
+			}else if((leitor == 'L') || (leitor == 'l')){
 				todosClientes();              //Chama a função
-			}else if(leitor == 'B'){
+			}else if((leitor == 'B') || (leitor == 'b')){
 				buscaCliente();               //Chama a função
-			}else if(leitor == 'A'){
+			}else if((leitor == 'A') || (leitor == 'a')){
 				atualizaCliente();
-			}else if(leitor == 'E'){
+			}else if((leitor == 'E') || (leitor == 'e')){
 				excluiCliente();	
 			}
 			
-		}else if (leitor == 'T'){
+		}else if ((leitor == 'T') || (leitor == 't')){
 			gerenciarContas();
 			fflush(stdin);
 			scanf("%c", &leitor);
 			system("cls");
-			if(leitor == 'S'){
+			if((leitor == 'S') || (leitor == 's')){
 				break;                            // Finalisa o código
-			}else if(leitor == 'C'){
+			}else if((leitor == 'C') || (leitor == 'c')){
 				if(contContas == 200){
 					printf("Numero de CONTAS chegou ao limite!\n");
 					system("pause");
 				}else{
 					cadastraConta();
 				}
-			}else if(leitor == 'R'){
+			}else if((leitor == 'R') || (leitor == 'r')){
 				listarContas();
-			}else if(leitor == 'L'){
+			}else if((leitor == 'L') || (leitor == 'l')){
 				listarConta();
-			}else if(leitor == 'D'){
+			}else if((leitor == 'D') || (leitor == 'd')){
 				if(contTransacoes == 1000){
 					printf("Numero de TRANSACOES chegou ao limite!\n");
 					system("pause");
 				}else{
 					depositaConta();
 				}
-			}else if(leitor == 'W'){
+			}else if((leitor == 'W') || (leitor == 'w')){
 				if(contTransacoes == 1000){
 					printf("Numero de TRANSACOES chegou ao limite!\n");
 					system("pause");
 				}else{
 					saqueConta();
 				}
-			}else if(leitor == 'T'){
+			}else if((leitor == 'T') || (leitor == 't')){
 				if(contTransacoes == 1000){
 					printf("Numero de TRANSACOES chegou ao limite!\n");
 					system("pause");
 				}else{
 					transferenciaContas();
 				}
-			}else if(leitor == 'E'){
+			}else if((leitor == 'E') || (leitor == 'e')){
 				extratoConta();
 			}
 		}
 		contClientes = verificaClientes();
 		contContas = verificaContas();
 		contTransacoes = verificaTransacoes();
-		printf("%d\n", contClientes);
-		printf("%d\n", contContas);
-		printf("%d\n", contTransacoes);
-		system("pause");
 
 	}
 
