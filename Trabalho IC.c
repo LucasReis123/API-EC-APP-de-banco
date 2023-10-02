@@ -15,7 +15,7 @@
 	};
 	
 	
-	void bem_Vindo(){ // Inicia o código
+	void bem_Vindo(){ // Inicia o cï¿½digo
 		printf("============== Bem Vindo! ===============\n");
 		printf("Digite um comando a seguir para iniciar:\n");
 		printf("C - Gerenciar Clientes\n");
@@ -1645,7 +1645,7 @@
 			leitura = fopen("Contas2.txt", "r");
 			
 			fscanf(leitura, "%[^'\n']s", texto2);
-			while(fgets(texto, 1000, leitura) != NULL){ //COPIA OS DAODS DO CONTAS2.TXT PARA CONTAS.TXT FAZENDO AS ALTERAÇÕES NO SALDO
+			while(fgets(texto, 1000, leitura) != NULL){ //COPIA OS DAODS DO CONTAS2.TXT PARA CONTAS.TXT FAZENDO AS ALTERAï¿½ï¿½ES NO SALDO
 				if(i == d){
 					fprintf(arquivo, "%s\n", texto2);
 					fscanf(leitura, "%[^'\n']s", texto2);
@@ -1766,7 +1766,7 @@
 		}
 		saldoint = (int)valor;
 		saldof = saldoa - valor;
-		if(saldof < 0){ // VERIFICA SE É POSSIVEL FAZER O SAQUE
+		if(saldof < 0){ // VERIFICA SE ï¿½ POSSIVEL FAZER O SAQUE
 			printf("Saldo insuficiente para esse saque!\n");
 			v2 = 1;
 		}
@@ -1799,7 +1799,7 @@
 			leitura = fopen("Contas2.txt", "r");
 			
 			fscanf(leitura, "%[^'\n']s", texto2);
-			while(fgets(texto, 1000, leitura) != NULL){ //COPIA OS DAODS DO CONTAS2.TXT PARA CONTAS.TXT FAZENDO AS ALTERAÇÕES NO SALDO
+			while(fgets(texto, 1000, leitura) != NULL){ //COPIA OS DAODS DO CONTAS2.TXT PARA CONTAS.TXT FAZENDO AS ALTERAï¿½ï¿½ES NO SALDO
 				if(i == d){
 					fprintf(arquivo, "%s\n", texto2);
 				}else if(i == d + 1){
@@ -1872,14 +1872,17 @@
 			vet[6] ++;
 			saldoint = saldoint - 2;
 		}
-		printf("Quantidade de NOTAS SACADAS:\n");
-		printf("%d -- R$200\n", vet[0]);
-		printf("%d -- R$100\n", vet[1]);
-		printf("%d -- R$50\n", vet[2]);
-		printf("%d -- R$20\n", vet[3]);
-		printf("%d -- R$10\n", vet[4]);
-		printf("%d -- R$5\n", vet[5]);
-		printf("%d -- R$2\n", vet[6]);
+
+		if (v2 == 0){
+			printf("Quantidade de NOTAS SACADAS:\n");
+			printf("%d -- R$200\n", vet[0]);
+			printf("%d -- R$100\n", vet[1]);
+			printf("%d -- R$50\n", vet[2]);
+			printf("%d -- R$20\n", vet[3]);
+			printf("%d -- R$10\n", vet[4]);
+			printf("%d -- R$5\n", vet[5]);
+			printf("%d -- R$2\n", vet[6]);
+		}
 
 		
 		system("pause");
@@ -2336,35 +2339,35 @@ int main(){
 	for(i = 0; leitor != 'S'; i++){
 		system("cls");
 		fflush(stdin);
-		bem_Vindo();                           // Início da execução
+		bem_Vindo();                           // Inï¿½cio da execuï¿½ï¿½o
 
-		scanf("%c", &leitor);                 // lê as opções de acesso
+		scanf("%c", &leitor);                 // lï¿½ as opï¿½ï¿½es de acesso
 		system("cls");                        // Limpa tela
 	
 	
 		if((leitor == 'S') || (leitor == 's')){
-			break;                            // Finalisa o código
+			break;                            // Finalisa o cï¿½digo
 		
 		}else if((leitor == 'C') || (leitor == 'c')){
-			gerenciarClientes();              //Chama a função 
+			gerenciarClientes();              //Chama a funï¿½ï¿½o 
 			fflush(stdin);
 			scanf("%c", &leitor);
 			system("cls");
 			if((leitor == 'S') || (leitor == 's')){
-				break;                           // Finalisa o código
+				break;                           // Finalisa o cï¿½digo
 				
 			}else if((leitor == 'C') || (leitor == 'c')){
 				if(contClientes == 100){
 					printf("Numero de CLIENTES chegou ao limite!\n");
 					system("pause");
 				}else {
-					cadastraCliente();                 //Chama a função 
+					cadastraCliente();                 //Chama a funï¿½ï¿½o 
 				}
 				
 			}else if((leitor == 'L') || (leitor == 'l')){
-				todosClientes();              //Chama a função
+				todosClientes();              //Chama a funï¿½ï¿½o
 			}else if((leitor == 'B') || (leitor == 'b')){
-				buscaCliente();               //Chama a função
+				buscaCliente();               //Chama a funï¿½ï¿½o
 			}else if((leitor == 'A') || (leitor == 'a')){
 				atualizaCliente();
 			}else if((leitor == 'E') || (leitor == 'e')){
@@ -2377,7 +2380,7 @@ int main(){
 			scanf("%c", &leitor);
 			system("cls");
 			if((leitor == 'S') || (leitor == 's')){
-				break;                            // Finalisa o código
+				break;                            // Finalisa o cï¿½digo
 			}else if((leitor == 'C') || (leitor == 'c')){
 				if(contContas == 200){
 					printf("Numero de CONTAS chegou ao limite!\n");
